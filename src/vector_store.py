@@ -34,7 +34,7 @@ collection = client.get_or_create_collection(
 
 
 # -----------------------------
-# Add chunks to database
+# Prepare data
 # -----------------------------
 ids = []
 documents = []
@@ -45,11 +45,15 @@ for chunk in chunks:
     ids.append(str(chunk["chunk_id"]))
     documents.append(chunk["text"])
     embeddings.append(chunk["embedding"])
+
     metadatas.append({
         "source": chunk["source"]
     })
 
 
+# -----------------------------
+# Store data in ChromaDB
+# -----------------------------
 collection.add(
     ids=ids,
     documents=documents,
